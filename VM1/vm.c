@@ -88,6 +88,7 @@ typedef struct _vm_instruction{
     vmopcode_t opcode;          // опкод
     vm_operand op1;             // первый операнд
     vm_operand op2;             // второй операнд
+	vmopsize_t opsize;			// размер инструкции
 } vm_instruction;
 #pragma pack()
 
@@ -844,7 +845,7 @@ unsigned int i;
         }
 
     offset += sprintf (buf + offset, "%08x:  ", (unsigned int)ins - (unsigned int)vm->memory);
-    for (i = 0; i < VM_INSTRUCTION_SIZE; ++i) {
+    for (i = 0; i < ins->opsize; ++i) {
         offset += sprintf (buf + offset, "%02x  ", *((unsigned char*)ins + i));
         }
     offset += sprintf (buf + offset, "%s ", vm_mnem[ins->opcode]);
@@ -917,7 +918,8 @@ vm_ins_result vm_run_current_instruction (vm_struct *vm) {
         }
 
     if (res != VM_RESULT_CHANGE_IP) {
-        vm_set_ip (vm, vm_get_ip (vm) + VM_INSTRUCTION_SIZE);
+        //vm_set_ip (vm, vm_get_ip (vm) + VM_INSTRUCTION_SIZE);
+		vm_set_ip(vm, vm_get_ip(vm) + ip->opsize);
         }
     else {
         res = VM_RESULT_OK;

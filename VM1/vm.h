@@ -48,7 +48,7 @@ typedef struct _vm_instruction vm_instruction;
 
 // тип значения регистров и операндов
 typedef unsigned int vmopvalue_t;
-
+typedef unsigned int vmopsize_t;
 
 // возможные состояния виртуальной машины
 typedef enum _vm_state {

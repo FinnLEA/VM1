@@ -7,6 +7,7 @@ use Exporter ();
 @EXPORT = qw (%opcodes %counts_operand %optypes $count_opcode $unused_operand &parse_line &parse_input_code);
 }
 my %opcodes;
+my %opcodesize
 my %counts_operand;
 my %optypes;
 my $count_opcode;
@@ -35,35 +36,52 @@ $unused_operand = "\x00"x5;
 
 
 $opcodes{"nop"} = "\x00";
+$opcodesize{"nop"} = 1;
 $counts_operand{"nop"} = 0;
 $opcodes{"in"} = "\x01";
+$opcodesize{"in"} = 6;
 $counts_operand{"in"} = 1;
 $opcodes{"out"} = "\x02";
+$opcodesize{"out"} = 6;
 $counts_operand{"out"} = 1;
 $opcodes{"mov"} = "\x03";
+$opcodesize{"mov"} = 11;
 $counts_operand{"mov"} = 2;
 $opcodes{"add"} = "\x04";
+$opcodesize{"add"} = 11;
 $counts_operand{"add"} = 2;
 $opcodes{"sub"} = "\x05";
+$opcodesize{"sub"} = 11;
 $counts_operand{"sub"} = 2;
 $opcodes{"xor"} = "\x06";
+$opcodesize{"xor"} = 11;
 $counts_operand{"xor"} = 2;
 $opcodes{"and"} = "\x07";
+$opcodesize{"and"} = 11;
 $counts_operand{"and"} = 2;
 $opcodes{"or"} = "\x08";
+$opcodesize{"or"} = 11;
 $counts_operand{"or"} = 2;
 $opcodes{"hlt"} = "\x09";
+$opcodesize{"hlt"} = 1;
 $counts_operand{"hlt"} = 0;
 $opcodes{"brk"} = "\x0A";
+$opcodesize{"brk"} = 1;
 $counts_operand{"brk"} = 0;
 $opcodes{"push"} = "\x0B";
+$opcodesize{"push"} = 6;
 $counts_operand{"push"} = 1;
 $opcodes{"pop"} = "\x0C";
+$opcodesize{"pop"} = 6;
 $counts_operand{"pop"} = 1;
 $opcodes{"call"} = "\x0D";
+$opcodesize{"call"} = 6;
 $counts_operand{"call"} = 1;
+$opcodes{"ret"} = "\x0E";
+$opcodesize{"ret"} = 1;
+$counts_operand{"ret"} = 0;
 
-$count_opcode = 13;
+$count_opcode = 14;
 
 
 sub parse_operand {
